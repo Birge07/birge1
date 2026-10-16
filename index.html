@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIRGE — Буллингке қарсы платформа</title>
+
+<style>
+:root {
+    --blue: #4967e8;
+    --purple: #8758db;
+    --light: #f4f6ff;
+    --text: #26304b;
+    --green: #25a879;
+    --pink: #ffe8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--light);
+    color: var(--text);
+}
+
+header {
+    background: white;
+    padding: 16px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 3px 15px #26304b10;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    color: var(--blue);
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+button, .nav-button {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover, .nav-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.nav-button {
+    background: #f0f2ff;
+    color: var(--blue);
+}
+
+.primary {
+    background: var(--blue);
+    color: white;
+}
+
+.secondary {
+    background: #e9e6ff;
+    color: var(--purple);
+}
+
+.success {
+    background: var(--green);
+    color: white;
+}
+
+.danger {
+    background: #ffe5e5;
+    color: #b42323;
+}
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 30px auto;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.hero {
+    background: linear-gradient(135deg, #4967e8, #9764e8);
+    color: white;
+    padding: 55px 35px;
+    border-radius: 28px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    margin: 0 0 18px;
+}
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.hero-art {
+    font-size: 100px;
+    text-align: center;
+}
+
+.section-title {
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px #26304b08;
+}
+
+.card h3 {
+    margin-top: 10px;
+}
+
+.card p {
+    line-height: 1.6;
+    color: #667085;
+}
+
+.icon {
+    font-size: 37px;
+}
+
+.card button {
+    margin-top: 10px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    padding: 23px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    color: var(--blue);
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.progress-bg {
+    background: #e5e8f5;
+    border-radius: 20px;
+    height: 13px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d8dced;
+    border-radius: 10px;
+    margin: 8px 0 16px;
+    font-size: 15px;
+    background: white;
+}
+
+label {
+    font-weight: bold;
+}
+
+.form-card {
+    max-width: 520px;
+    margin: 35px auto;
+}
+
+.question {
+    background: #f6f7ff;
+    padding: 18px;
+    border-radius: 15px;
+    margin: 18px 0;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    background: white;
+    border: 1px solid #e1e5f5;
+    border-radius: 10px;
+    margin-top: 9px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.option input {
+    width: auto;
+    margin: 0 8px 0 0;
+}
+
+.result {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #e8f8f0;
+    line-height: 1.7;
+}
+
+.notice {
+    background: #fff5d9;
+    padding: 16px;
+    border-radius: 12px;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.badge {
+    display: inline-block;
+    background: #f0eaff;
+    color: #7045bd;
+    padding: 12px 15px;
+    border-radius: 13px;
+    margin: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 45px;
+    color: #7a8197;
+    background: white;
+}
+
+.small {
+    font-size: 13px;
+    color: #737b90;
+    line-height: 1.6;
+}
+
+@media(max-width: 800px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 35px 23px;
+    }
+
+    .hero-art {
+        font-size: 75px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        position: static;
+    }
+
+    nav {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">💙 BIRGE</div>
+
+    <nav>
+        <button class="nav-button" onclick="showPage('home')">Басты бет</button>
+        <button class="nav-button" onclick="showPage('dashboard')">Жеке кабинет</button>
+        <button class="nav-button" onclick="showPage('surveys')">Сауалнама</button>
+        <button class="nav-button" onclick="showPage('games')">Ойындар</button>
+        <button class="nav-button" onclick="showPage('kindness')">Мейірімділік</button>
+        <button class="primary" id="authButton" onclick="showPage('auth')">Кіру / Тіркелу</button>
+    </nav>
+</header>
+
+<main class="container">
+
+<!-- БАСТЫ БЕТ -->
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div>
+            <h1>Қорлама. Қолда. Бірге өзгер! 💙</h1>
+
+            <p>
+                BIRGE — әр оқушы өзін қауіпсіз сезінетін,
+                бір-бірін құрметтейтін орта қалыптастыруға
+                арналған интерактивті платформа.
+            </p>
+
+            <button class="success" onclick="showPage('auth')">
+                🚀 Қатысуды бастау
+            </button>
+
+            <button class="secondary" onclick="showPage('games')">
+                Ойындарды көру
+            </button>
+        </div>
+
+        <div class="hero-art">🤝💙</div>
+    </div>
+
+    <h2 class="section-title">✨ BIRGE платформасында не істей аласың?</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="icon">📝</div>
+            <h3>Сауалнама толтыр</h3>
+            <p>Мектептегі қарым-қатынас пен қауіпсіз орта туралы сұрақтарға жауап бер.</p>
+            <button class="primary" onclick="showPage('surveys')">Бастау</button>
+        </div>
+
+        <div class="card">
+            <div class="icon">🎮</div>
+            <h3>Ойын ойна</h3>
+            <p>Буллингті анықтап, түрлі жағдайларда дұрыс шешім қабылдауды үйрен.</p>
+            <button class="primary" onclick="showPage('games')">Ойнау</button>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌟</div>
+            <h3>Жақсылық жаса</h3>
+            <p>Күн сайын мейірімділікке бағытталған шағын тапсырмаларды орында.</p>
+            <button class="primary" onclick="showPage('kindness')">Тапсырмалар</button>
+        </div>
+
+    </div>
+
+    <div class="notice">
+        💙 <strong>Есіңде болсын!</strong>
+        Егер сені немесе басқа біреуді қорласа, бұл туралы
+        сенімді ересек адамға айтуға болады. Көмек сұрау — әлсіздік емес.
+    </div>
+</section>
+
+
+<!-- ТІРКЕЛУ ЖӘНЕ КІРУ -->
+<section id="auth" class="page">
+
+    <div class="card form-card">
+        <h2>👋 BIRGE-ге қош келдің!</h2>
+
+        <div id="authForms">
+
+            <h3>Тіркелу</h3>
+
+            <form id="registerForm">
+                <label>Есімің немесе бүркеншік атың</label>
+                <input id="regName" maxlength="30" required
+                       placeholder="Мысалы: Айдана">
+
+                <label>Логин</label>
+                <input id="regUser" minlength="3" maxlength="24"
+                       pattern="[A-Za-z0-9_]+"
+                       required placeholder="Мысалы: aidana123">
+
+                <label>Құпиясөз (кемінде 8 таңба)</label>
+                <input id="regPass" type="password" minlength="8"
+                       required autocomplete="new-password"
+                       placeholder="Құпиясөз ойлап тап">
+
+                <button class="primary" type="submit">Тіркелу</button>
+            </form>
+
+            <hr>
+
+            <h3>Аккаунтың бар ма?</h3>
+
+            <form id="loginForm">
+                <label>Логин</label>
+                <input id="loginUser" required autocomplete="username">
+
+                <label>Құпиясөз</label>
+                <input id="loginPass" type="password" required
+                       autocomplete="current-password">
+
+                <button class="success" type="submit">Жүйеге кіру</button>
+            </form>
+
+        </div>
+
+        <div id="authMessage" class="result" hidden></div>
+
+        <p class="small">
+            Демонстрациялық нұсқа: аккаунттар осы браузерде ғана сақталады.
+            Бұл жүйені нақты пайдаланушылардың құпиясөздерін қорғауға
+            арналған серверлік тіркелу жүйесі деп қарастыруға болмайды.
+            Құпия немесе жеке мәліметтерді енгізбе.
+        </p>
+    </div>
+</section>
+
+
+<!-- ЖЕКЕ КАБИНЕТ -->
+<section id="dashboard" class="page">
+
+    <h1>👤 Менің кабинетім</h1>
+    <p id="welcomeText">Жеке нәтижелеріңді көру үшін жүйеге кір.</p>
+
+    <div id="dashboardContent" hidden>
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong id="points">0</strong>
+                Ұпай
+            </div>
+
+            <div class="stat">
+                <strong id="completed">0</strong>
+                Аяқталған тапсырма
+            </div>
+
+            <div class="stat">
+                <strong id="surveysCount">0</strong>
+                Толтырылған сауалнама
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>📈 Менің прогресім</h3>
+            <div class="progress-bg">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <p id="progressText">0% аяқталды</p>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+            <h3>🏆 Менің жетістіктерім</h3>
+            <div id="badges"></div>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+            <h3>📋 Соңғы нәтижелер</h3>
+            <div id="history">Әзірге нәтиже жоқ.</div>
+        </div>
+
+        <button class="danger" style="margin-top:20px"
+                onclick="logout()">Аккаунттан шығу</button>
+
+    </div>
+</section>
+
+
+<!-- САУАЛНАМАЛАР -->
+<section id="surveys" class="page">
+
+    <h1>📝 Сауалнамалар</h1>
+
+    <p>
+        Бұл сауалнама мектептегі қарым-қатынас пен қауіпсіздік
+        туралы ойлануға көмектеседі.
+    </p>
+
+    <div class="notice">
+        Сауалнамаға қатысу ерікті. Сұраққа жауап бергің келмесе,
+        оны өткізіп жіберуге болады. Бұл демонстрациялық нұсқада
+        жауаптар серверге жіберілмейді.
+    </div>
+
+    <div class="card">
+        <form id="surveyForm">
+
+            <div class="question">
+                <p><strong>1. Мектепте өзіңді қауіпсіз сезінесің бе?</strong></p>
+
+                <label class="option">
+                    <input type="radio" name="s1" value="3" required>
+                    Әрдайым
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s1" value="2">
+                    Кейде
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s1" value="1">
+                    Сирек
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s1" value="0">
+                    Ешқашан
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s1" value="skip">
+                    Жауап бергім келмейді
+                </label>
+            </div>
+
+            <div class="question">
+                <p><strong>2. Басқалардың бір оқушыны мазақтағанын көрдің бе?</strong></p>
+
+                <label class="option">
+                    <input type="radio" name="s2" value="3" required>
+                    Бірнеше рет
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s2" value="2">
+                    Бір рет
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s2" value="1">
+                    Нақты білмеймін
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s2" value="0">
+                    Жоқ
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s2" value="skip">
+                    Жауап бергім келмейді
+                </label>
+            </div>
+
+            <div class="question">
+                <p><strong>3. Қиын жағдайда кімнен көмек сұрай аласың?</strong></p>
+
+                <label class="option">
+                    <input type="radio" name="s3" value="parent" required>
+                    Ата-анамнан
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s3" value="teacher">
+                    Мұғалімнен немесе психологтен
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s3" value="friend">
+                    Досымнан
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s3" value="none">
+                    Кімге жүгінерімді білмеймін
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="s3" value="skip">
+                    Жауап бергім келмейді
+                </label>
+            </div>
+
+            <button class="primary" type="submit">Сауалнаманы аяқтау</button>
+
+        </form>
+
+        <div id="surveyResult" class="result" hidden></div>
+    </div>
+</section>
+
+
+<!-- ОЙЫНДАР -->
+<section id="games" class="page">
+
+    <h1>🎮 «Буллингті анықта!»</h1>
+
+    <p>Жағдаяттарды оқып, дұрыс жауапты таңда.</p>
+
+    <div class="card">
+
+        <form id="quizForm">
+
+            <div class="question">
+                <p><strong>1. Бірнеше оқушы күн сайын бір баланы мазақтап, ойынға қоспайды.</strong></p>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="a" required>
+                    Бұл жай әзіл
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="b">
+                    Бұл буллингтің белгісі болуы мүмкін
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="c">
+                    Бұған мән бермеу керек
+                </label>
+            </div>
+
+            <div class="question">
+                <p><strong>2. Интернетте сыныптасыңды қорлайтын жазба жарияланды. Не істеген дұрыс?</strong></p>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="a" required>
+                    Жазбаны достарыма тарату
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="b">
+                    Күлкі белгілерін қою
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="c">
+                    Таратпау, дәлелді қауіпсіз сақтау және сенімді ересекке айту
+                </label>
+            </div>
+
+            <div class="question">
+                <p><strong>3. Досың саған біреудің оны қорлап жүргенін айтты. Не істейсің?</strong></p>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="a" required>
+                    Оны тыңдап, қолдау көрсетемін және көмек жолдарын бірге қарастырамын
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="b">
+                    Оны кінәлаймын
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="c">
+                    Оның әңгімесін басқаларға таратамын
+                </label>
+            </div>
+
+            <button class="primary" type="submit">Жауаптарды тексеру</button>
+
+        </form>
+
+        <div id="quizResult" class="result" hidden></div>
+
+    </div>
+</section>
+
+
+<!-- МЕЙІРІМДІЛІК ТАПСЫРМАЛАРЫ -->
+<section id="kindness" class="page">
+
+    <h1>🌟 Мейірімділік марафоны</h1>
+
+    <p>
+        Күн сайын кішкентай жақсылық жасау арқылы
+        айналаңдағы адамдарға қолдау көрсетуді үйрен!
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="icon">💬</div>
+            <h3>1. Жылы сөз</h3>
+            <p>Біреуге шынайы әрі жағымды сөз айт немесе алғыс білдір.</p>
+            <button class="success" onclick="completeTask('kind1', this)">
+                Орындадым ✓
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="icon">🤝</div>
+            <h3>2. Қолдау көрсету</h3>
+            <p>Біреуге көмек қажет болса, қауіпсіз әрі әдепті түрде қолдау ұсын.</p>
+            <button class="success" onclick="completeTask('kind2', this)">
+                Орындадым ✓
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="icon">💙</div>
+            <h3>3. Құрмет</h3>
+            <p>Бүгін басқа адамның пікірін бөлмей тыңдап, құрметтеуге тырыс.</p>
+            <button class="success" onclick="completeTask('kind3', this)">
+                Орындадым ✓
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="icon">🛡️</div>
+            <h3>4. Куәгердің әрекеті</h3>
+            <p>Буллингті көргенде қауіпсіз түрде көмекке жүгінудің бір жолын үйрен.</p>
+            <button class="success" onclick="completeTask('kind4', this)">
+                Орындадым ✓
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="icon">📱</div>
+            <h3>5. Интернеттегі әдеп</h3>
+            <p>Қорлайтын жазбаны таратпа және интернетте өзгелерге құрметпен қара.</p>
+            <button class="success" onclick="completeTask('kind5', this)">
+                Орындадым ✓
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌱</div>
+            <h3>6. Өзіңе қамқорлық</h3>
+            <p>Өзіңе ұнайтын пайдалы әрекетке уақыт бөліп, сезімдеріңді түсінуге тырыс.</p>
+            <button class="success" onclick="completeTask('kind6', this)">
+                Орындадым ✓
+            </button>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- КӨМЕК -->
+<section id="help" class="page">
+
+    <h1>💌 Көмек алу</h1>
+
+    <div class="card">
+        <h3>Саған қолдау керек пе?</h3>
+
+        <p>
+            Сенімді ересек адаммен, ата-анаңмен,
+            мұғаліммен немесе мектеп психологімен сөйлесе аласың.
+        </p>
+
+        <p>
+            Егер қауіп төніп тұрса, қауіпсіз жерге барып,
+            жақын жердегі сенімді ересек адамға дереу хабарла.
+        </p>
+
+        <div class="notice">
+            Бұл демонстрациялық сайттағы форма нақты адамға хабарлама жібермейді.
+            Мұнда нақты аты-жөніңді, мекенжайыңды немесе басқа құпия
+            мәліметтерді жазба.
+        </div>
+
+        <label>Саған қандай ақпарат керек?</label>
+        <select id="helpType">
+            <option>Буллингке тап болғанда не істеу керек?</option>
+            <option>Досыма қалай көмектесемін?</option>
+            <option>Кибербуллингтен қалай қорғанамын?</option>
+            <option>Сенімді ересек адаммен қалай сөйлесемін?</option>
+        </select>
+
+        <button class="primary" onclick="showHelp()">Кеңесті көрсету</button>
+
+        <div id="helpResult" class="result" hidden></div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <h3>💙 BIRGE</h3>
+    <p>Қорлама. Қолда. Бірге өзгер!</p>
+    <p class="small">Буллингтің алдын алуға арналған оқу жобасының демонстрациялық нұсқасы.</p>
+    <button class="nav-button" onclick="showPage('help')">Көмек алу</button>
+</footer>
+
+
+<script>
+const DB_KEY = "birge_demo_users_v1";
+const SESSION_KEY = "birge_demo_session_v1";
+
+let currentUser = null;
+
+function readUsers() {
+    try {
+        const value = JSON.parse(localStorage.getItem(DB_KEY) || "{}");
+        return value && typeof value === "object" && !Array.isArray(value)
+            ? value : {};
+    } catch {
+        return {};
+    }
+}
+
+function saveUsers(users) {
+    localStorage.setItem(DB_KEY, JSON.stringify(users));
+}
+
+function safeText(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function getUser() {
+    if (!currentUser) return null;
+
+    const users = readUsers();
+    return users[currentUser] || null;
+}
+
+function updateUser(change) {
+    const users = readUsers();
+
+    if (!currentUser || !users[currentUser]) {
+        alert("Алдымен жүйеге кір!");
+        showPage("auth");
+        return false;
+    }
+
+    change(users[currentUser]);
+    saveUsers(users);
+    refreshDashboard();
+    return true;
+}
+
+function showPage(id) {
+    const user = getUser();
+
+    if (["dashboard", "surveys", "kindness"].includes(id) && !user) {
+        alert("Бұл бөлімді пайдалану үшін алдымен тіркел немесе жүйеге кір.");
+        id = "auth";
+    }
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    if (id === "dashboard") refreshDashboard();
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateAuthButton() {
+    const user = getUser();
+    document.getElementById("authButton").textContent =
+        user ? "👤 " + user.name : "Кіру / Тіркелу";
+}
+
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("regName").value.trim();
+    const username = document.getElementById("regUser").value.trim().toLowerCase();
+    const password = document.getElementById("regPass").value;
+
+    if (!name || !/^[a-z0-9_]{3,24}$/.test(username) || password.length < 8) {
+        alert("Мәліметтерді дұрыс толтыр. Логин 3–24 таңбадан тұруы керек.");
+        return;
+    }
+
+    const users = readUsers();
+
+    if (users[username]) {
+        alert("Бұл логин бұрын тіркелген. Басқа логин таңда.");
+        return;
+    }
+
+    // Бұл тек жергілікті демонстрацияға арналған.
+    // Өндірістік жүйеде құпиясөзді браузерде сақтауға болмайды.
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const encodedSalt = Array.from(salt, b => b.toString(16).padStart(2, "0")).join("");
+
+    const key = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(password),
+        "PBKDF2",
+        false,
+        ["deriveBits"]
+    );
+
+    const bits = await crypto.subtle.deriveBits({
+        name: "PBKDF2",
+        salt: salt,
+        iterations: 100000,
+        hash: "SHA-256"
+    }, key, 256);
+
+    const passwordHash = Array.from(new Uint8Array(bits),
+        b => b.toString(16).padStart(2, "0")).join("");
+
+    users[username] = {
+        name: name,
+        salt: encodedSalt,
+        passwordHash: passwordHash,
+        points: 0,
+        completedTasks: [],
+        surveys: 0,
+        quizDone: false,
+        history: []
+    };
+
+    try {
+        saveUsers(users);
+        currentUser = username;
+        sessionStorage.setItem(SESSION_KEY, username);
+
+        document.getElementById("authMessage").hidden = false;
+        document.getElementById("authMessage").textContent =
+            "Тіркелу сәтті аяқталды! Қош келдің, " + name + "!";
+
+        updateAuthButton();
+        refreshDashboard();
+        showPage("dashboard");
+    } catch {
+        alert("Браузер деректерді сақтай алмады. Файлды браузерде қайта ашып көр.");
+    }
+});
+
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById("loginUser").value.trim().toLowerCase();
+    const password = document.getElementById("loginPass").value;
+    const users = readUsers();
+    const user = users[username];
+
+    if (!user) {
+        alert("Логин немесе құпиясөз қате.");
+        return;
+    }
+
+    try {
+        const salt = new Uint8Array(
+            user.salt.match(/.{2}/g).map(byte => parseInt(byte, 16))
+        );
+
+        const key = await crypto.subtle.importKey(
+            "raw",
+            new TextEncoder().encode(password),
+            "PBKDF2",
+            false,
+            ["deriveBits"]
+        );
+
+        const bits = await crypto.subtle.deriveBits({
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 100000,
+            hash: "SHA-256"
+        }, key, 256);
+
+        const hash = Array.from(new Uint8Array(bits),
+            b => b.toString(16).padStart(2, "0")).join("");
+
+        if (hash !== user.passwordHash) {
+            alert("Логин немесе құпиясөз қате.");
+            return;
+        }
+
+        currentUser = username;
+        sessionStorage.setItem(SESSION_KEY, username);
+
+        document.getElementById("loginPass").value = "";
+
+        updateAuthButton();
+        refreshDashboard();
+        showPage("dashboard");
+    } catch {
+        alert("Кіру мүмкін болмады. Бетті қайта ашып көр.");
+    }
+});
+
+function logout() {
+    currentUser = null;
+    sessionStorage.removeItem(SESSION_KEY);
+    updateAuthButton();
+    showPage("home");
+}
+
+function refreshDashboard() {
+    const user = getUser();
+
+    document.getElementById("dashboardContent").hidden = !user;
+    document.getElementById("welcomeText").textContent = user
+        ? "Қош келдің, " + user.name + "! Бүгін де бірге дамимыз 💙"
+        : "Жеке нәтижелеріңді көру үшін жүйеге кір.";
+
+    if (!user) return;
+
+    document.getElementById("points").textContent = user.points;
+    document.getElementById("completed").textContent = user.completedTasks.length;
+    document.getElementById("surveysCount").textContent = user.surveys;
+
+    const totalTasks = 8;
+    const completed = user.completedTasks.length + (user.quizDone ? 1 : 0);
+    const percent = Math.min(100, Math.round(completed / totalTasks * 100));
+
+    document.getElementById("progressBar").style.width = percent + "%";
+    document.getElementById("progressText").textContent =
+        percent + "% орындалды";
+
+    let badges = "";
+
+    if (user.completedTasks.length >= 1)
+        badges += '<span class="badge">🌱 Алғашқы қадам</span>';
+
+    if (user.quizDone)
+        badges += '<span class="badge">🧠 Білімді оқушы</span>';
+
+    if (user.completedTasks.length >= 3)
+        badges += '<span class="badge">💙 Мейірімді дос</span>';
+
+    if (user.surveys >= 1)
+        badges += '<span class="badge">📝 Белсенді қатысушы</span>';
+
+    document.getElementById("badges").innerHTML =
+        badges || "Алғашқы жетістігіңді алу үшін тапсырма орында!";
+
+    document.getElementById("history").innerHTML = user.history.length
+        ? user.history.slice(-8).reverse().map(item =>
+            "<p>• " + safeText(item) + "</p>").join("")
+        : "Әзірге нәтиже жоқ.";
+
+    document.querySelectorAll("[onclick^='completeTask']").forEach(button => {
+        const match = button.getAttribute("onclick").match(/completeTask\('([^']+)'/);
+
+        if (match && user.completedTasks.includes(match[1])) {
+            button.textContent = "Орындалды ✓";
+            button.disabled = true;
+        }
+    });
+}
+
+function completeTask(id, button) {
+    const success = updateUser(user => {
+        if (user.completedTasks.includes(id)) return;
+
+        user.completedTasks.push(id);
+        user.points += 10;
+        user.history.push("Мейірімділік тапсырмасы орындалды: " + id);
+    });
+
+    if (success) {
+        button.textContent = "Орындалды ✓";
+        button.disabled = true;
+    }
+}
+
+document.getElementById("quizForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (!getUser()) {
+        alert("Алдымен жүйеге кір!");
+        showPage("auth");
+        return;
+    }
+
+    const answers = {
+        q1: "b",
+        q2: "c",
+        q3: "a"
+    };
+
+    let score = 0;
+
+    for (const question in answers) {
+        if (this.elements[question].value === answers[question]) score++;
+    }
+
+    const user = getUser();
+    const firstAttempt = !user.quizDone;
+
+    updateUser(user => {
+        user.quizDone = true;
+
+        if (firstAttempt) {
+            user.points += score * 10;
+        }
+
+        user.history.push("Буллинг тесті: " + score + "/3");
+    });
+
+    const explanations = [
+        "1. Қайталанатын қорлау мен әдейі шеттету буллингтің белгісі болуы мүмкін.",
+        "2. Қорлайтын жазбаны таратпау, қауіпсіз дәлелді сақтау және ересекке айту маңызды.",
+        "3. Досыңды тыңдап, қолдау көрсет және қажет болса сенімді ересекке жүгін."
+    ];
+
+    const result = document.getElementById("quizResult");
+    result.hidden = false;
+    result.innerHTML =
+        "<h3>Нәтиже: " + score + "/3</h3>" +
+        "<p>" + (score === 3
+            ? "Тамаша! Барлық жауап дұрыс! 🎉"
+            : "Жақсы талпыныс! Түсіндірмелерді оқып шық.") + "</p>" +
+        explanations.map(text => "<p>✓ " + text + "</p>").join("") +
+        (firstAttempt ? "<p>Ұпайлар жеке кабинетке қосылды.</p>" :
+        "<p>Бұл тестің ұпайлары бұрын есептелген.</p>");
+
+    refreshDashboard();
+});
+
+document.getElementById("surveyForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (!getUser()) {
+        alert("Алдымен жүйеге кір!");
+        showPage("auth");
+        return;
+    }
+
+    const result = document.getElementById("surveyResult");
+    result.hidden = false;
+
+    const safety = this.elements.s1.value;
+    const bullying = this.elements.s2.value;
+    const help = this.elements.s3.value;
+
+    let message = "<h3>Сауалнама аяқталды! 💙</h3>";
+    message += "<p>Уақытыңды бөліп, жауап бергеніңе рақмет.</p>";
+
+    if (safety === "0" || safety === "1") {
+        message += "<p>Өзіңді қауіпсіз сезінбейтін кездер болса, сенімді ересек адаммен сөйлесуге құқығың бар.</p>";
+    }
+
+    if (help === "none") {
+        message += "<p>Көмек сұрайтын адамды табу қиын болса, ата-анаңмен, мұғаліммен немесе мектеп психологімен сөйлесуден бастауға болады.</p>";
+    }
+
+    message += "<p>Бұл жауаптар диагноз емес және нақты жағдайды өздігінен анықтамайды.</p>";
+
+    result.innerHTML = message;
+
+    updateUser(user => {
+        user.surveys++;
+        user.points += 5;
+        user.history.push("Қарым-қатынас сауалнамасы аяқталды");
+    });
+
+    this.querySelector("button[type='submit']").disabled = true;
+});
+
+function showHelp() {
+    const type = document.getElementById("helpType").value;
+
+    const advice = {
+        "Буллингке тап болғанда не істеу керек?":
+            "Қауіпсіздігіңді бірінші орынға қой. Қажет болса, оқиға орнынан кетіп, сенімді ересек адамға айт. Қайталанған оқиғаларды қауіпсіз түрде тіркеп қоюға болады.",
+
+        "Досыма қалай көмектесемін?":
+            "Досыңды тыңда, оны кінәлама және қолдайтыныңды айт. Қауіпсіз болса, сенімді ересек адамнан көмек сұрауға бірге бар.",
+
+        "Кибербуллингтен қалай қорғанамын?":
+            "Қорлайтын жазбаны таратпа. Қауіпсіз болса, дәлелдерді сақта, аккаундты бұғатта немесе шағымдан және сенімді ересек адамға айт.",
+
+        "Сенімді ересек адаммен қалай сөйлесемін?":
+            "«Маған бір жағдай туралы айту керек. Мен өзімді жайсыз сезініп жүрмін. Мені тыңдап, көмектесе аласыз ба?» деп бастауға болады."
+    };
+
+    const result = document.getElementById("helpResult");
+    result.hidden = false;
+    result.textContent = advice[type];
+}
+
+// Бұл тек демонстрациялық сайтта қайта кіруді көрсету үшін.
+// Қауіпсіз серверлік аутентификацияны алмастырмайды.
+try {
+    const previousUser = sessionStorage.getItem(SESSION_KEY);
+    if (previousUser && readUsers()[previousUser]) {
+        currentUser = previousUser;
+    }
+} catch {}
+
+updateAuthButton();
+refreshDashboard();
+</script>
+
+</body>
+</html>
